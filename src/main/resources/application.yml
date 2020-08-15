@@ -1,0 +1,15 @@
+server.port: 3003
+spring:
+  rabbitmq:
+    addresses: amqp://rabbitmq:password@localhost:5672/
+  cloud:
+    stream:
+      function:
+        definition: processTxn
+      bindings:
+        processTxn-in-0:
+          group: txn-request
+          destination: txn
+          content-type: application/json
+          consumer:
+            batch-mode: true
